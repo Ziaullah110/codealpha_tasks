@@ -1,117 +1,44 @@
+<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Responsive Image Gallery — Lightbox + Filters</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Music Player</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-<div class="wrap">
-<header>
-<h1>Responsive Image Gallery</h1>
-<div class="controls">
-<div class="filters" role="toolbar" aria-label="Gallery filters">
-<button class="btn" data-filter="all">All</button>
-<button class="btn" data-filter="nature">Nature</button>
-<button class="btn" data-filter="city">City</button>
-<button class="btn" data-filter="people">People</button>
-</div>
-<div style="width:8px"></div>
-<select class="filter-select" id="presetFilter" aria-label="Image style filter">
-<option value="none">No filter</option>
-<option value="grayscale">Grayscale</option>
-<option value="sepia">Sepia</option>
-<option value="blur">Soft blur</option>
-</select>
-<button class="btn primary" id="shuffle">Shuffle</button>
-</div>
-</header>
+  <div class="player">
+    <h2>🎧 Music Player</h2>
+    <div class="song-info">
+      <h3 id="title">Title</h3>
+      <p id="artist">Artist</p>
+    </div>
 
-<!-- GALLERY -->
-<main>
-<section class="gallery" id="gallery">
-<!-- Each card has data-index (for lightbox) and data-category for filtering -->
+    <div class="controls">
+      <button id="prev">&#9664;</button>
+      <button id="play">▶️</button>
+      <button id="next">&#9654;</button>
+    </div>
 
+    <div class="progress-container">
+      <span id="current-time">0:00</span>
+      <input type="range" id="progress" value="0" min="0" max="100" />
+      <span id="duration">0:00</span>
+    </div>
 
-<!-- Replace these URLs with your own images or local assets if desired -->
-<article class="card" data-index="0" data-category="nature" tabindex="0">
-<img src="https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1200&auto=format&fit=crop" alt="Mountains & lake" />
-<div class="meta">Mountains</div>
-</article>
+    <div class="volume-control">
+      <label for="volume">🔊</label>
+      <input type="range" id="volume" min="0" max="1" step="0.01" value="1" />
+    </div>
 
+    <div class="playlist">
+      <h4>Playlist</h4>
+      <ul id="playlist"></ul>
+    </div>
 
+    <audio id="audio"></audio>
+  </div>
 
-<article class="card" data-index="1" data-category="city" tabindex="0">
-<img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=1200&auto=format&fit=crop" alt="Night city street" />
-<div class="meta">City lights</div>
-</article>
-
-
-<article class="card" data-index="2" data-category="people" tabindex="0">
-<img src="https://images.unsplash.com/photo-1524504388940-b1c1722653e1?q=80&w=1200&auto=format&fit=crop" alt="Person portrait" />
-<div class="meta">Portrait</div>
-</article>
-
-
-<article class="card" data-index="3" data-category="nature" tabindex="0">
-<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?q=80&w=1200&auto=format&fit=crop" alt="Forest path" />
-<div class="meta">Forest</div>
-</article>
-
-
-<article class="card" data-index="4" data-category="city" tabindex="0">
-<img src="https://images.unsplash.com/photo-1467269204594-9661b134dd2b?q=80&w=1200&auto=format&fit=crop&ixlib=rb-4.0.3" alt="Bridge" />
-<div class="meta">Bridge</div>
-</article>
-
-
-<article class="card" data-index="5" data-category="people" tabindex="0">
-<img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=1200&auto=format&fit=crop" alt="Smiling person" />
-<div class="meta">Smile</div>
-</article>
-
-
-<article class="card" data-index="6" data-category="nature" tabindex="0">
-<img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?q=80&w=1200&auto=format&fit=crop" alt="Beach" />
-<div class="meta">Beach</div>
-</article>
-
-
-<article class="card" data-index="7" data-category="city" tabindex="0">
-<img src="https://images.unsplash.com/photo-1472214103451-9374bd1c798e?q=80&w=1200&auto=format&fit=crop" alt="Urban alley" />
-<div class="meta">Alley</div>
-</article>
-
-
-</section>
-</main>
-</div>
-
-<!-- LIGHTBOX -->
-<div class="lightbox" id="lightbox" aria-hidden="true" role="dialog" aria-label="Image viewer">
-<button class="lb-close" id="lbClose" aria-label="Close">✕</button>
-<div class="lb-nav">
-<button id="prev" aria-label="Previous image">◀</button>
-<button id="next" aria-label="Next image">▶</button>
-</div>
-
-
-<div class="lightbox-content" role="document">
-<img class="lightbox-image" id="lbImage" src="" alt="Open image">
-<aside class="lightbox-sidebar" id="lbInfo">
-<h3 id="lbTitle">Title</h3>
-<p id="lbMeta">Category • description</p>
-<div style="height:8px"></div>
-<div style="display:flex;gap:.5rem;flex-wrap:wrap">
-<button class="btn" id="download">Download</button>
-<button class="btn" id="toggleFilter">Toggle filter</button>
-</div>
-</aside>
-</div>
-</div>
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
